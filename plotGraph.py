@@ -1,15 +1,26 @@
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-
-fptr = open("TimeTaken.csv", 'r')
 
 BubbleSortCoordinates = []
 SelectSortCoordinates = []
+
+overCount = 1
 
 count = 0
 inputVar = 0
 temp = []
 
-for line in fptr.readlines():
+fptr = open("TimeTaken.csv", 'r')
+lines = fptr.readlines()
+fptr.close()
+
+for line in lines:
+    if overCount%10 != 0:
+        overCount += 1
+        continue
+
+    overCount += 1
+
     for char in line:
         if char == ',':
             if (count == 0):
@@ -27,8 +38,15 @@ for line in fptr.readlines():
         else:
             temp.append(char)
 
-fptr.close()
+plt.scatter(*zip(*BubbleSortCoordinates), s=1, c='red')
+plt.scatter(*zip(*SelectSortCoordinates), s=1, c='blue')
 
-plt.scatter(*zip(*BubbleSortCoordinates), s=1)
-plt.scatter(*zip(*SelectSortCoordinates), s=1)
+plt.title("Sorting Algo's - Number vs. Time (IceCereal)")
+bubblePatch = mpatches.Patch(color='red', label="Bubble Sort")
+selectPatch = mpatches.Patch(color='blue', label="Selection Sort")
+plt.legend(handles=[bubblePatch, selectPatch])
+
+plt.xlabel("Number of Variables")
+plt.ylabel("Time Taken (μS)")
+
 plt.show()
