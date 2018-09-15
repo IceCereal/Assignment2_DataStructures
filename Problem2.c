@@ -19,11 +19,11 @@ void main(){
 
     long lvMain, lvInner;
 
-    for (lvMain = 1; lvMain <= 1000; ++lvMain){
+    for (lvMain = 1; lvMain <= 5000; ++lvMain){
         printf("\n___\nNumber of elements:\t%ld.", lvMain);
 
-        int *unsortedBubble = (int *)malloc(lvMain);
-        int *unsortedSelect = (int *)malloc(lvMain);
+        int *unsortedBubble = (int *)malloc(lvMain*sizeof(int));
+        int *unsortedSelect = (int *)malloc(lvMain*sizeof(int));
 
         //Assign random values to the array
         for (lvInner = 0; lvInner < (lvMain); ++lvInner){
@@ -40,12 +40,12 @@ void main(){
         BubbleSortTime = end - start;
 
         start = clock();
-        SelectionSort(&unsortedSelect[0], lvMain*1000);
+        SelectionSort(&unsortedSelect[0], lvMain);
         end = clock();
 
-        SelecSortTime = end - start;
+        SelectSortTime = end - start;
 
-        printf("\nB: %ld | S: %ld", BubbleSortTime, SelecSortTime);
+        printf("\nB: %ld | S: %ld", BubbleSortTime, SelectSortTime);
 
         free(unsortedBubble);
         free(unsortedSelect);
@@ -63,6 +63,27 @@ void BubbleSort(int *array, long limit){
                 array[j] = array[j+1];
                 array[j+1] = temp;
             }
+        }
+    }
+
+    return;
+}
+
+void SelectionSort(int *array, long limit){
+    int i, j;
+    int minPos, temp;
+
+    for (i = 0; i < limit; ++i){
+        minPos = i;
+        for (j = i+1; j < limit; ++j){
+            if (array[minPos] > array[j]){
+                minPos = j;
+            }
+        }
+        if (minPos != i){
+            temp = array[i];
+            array[i] = array[minPos];
+            array[minPos] = temp;
         }
     }
 
