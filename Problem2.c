@@ -7,38 +7,64 @@ Selection & Bubble
 #include <stdlib.h>
 #include <time.h>
 
-void BubbleSort(int *);
-void SelectionSort(int *)
+void BubbleSort(int *, long);
+void SelectionSort(int *, long);
 
 void main(){
-    clock_t start, end;
+    clock_t start, end, BubbleSortTime, SelectSortTime;
 
-    randomSeed = 1;
+    int randomSeed = 1;
 
     double total;
 
-    int lvMain, lvInner;
+    long lvMain, lvInner;
 
-    for (lvMain = 1; lvMain <= 10; ++lvMain){
-        printf("\n\n___\nProcess for:\t%d.\n___\n", lvMain*1000);
+    for (lvMain = 1; lvMain <= 1000; ++lvMain){
+        printf("\n___\nNumber of elements:\t%ld.", lvMain);
 
-        int *unsortedBubble = (int *)malloc(lvMain * 1000);
-        int *unsortedSelect = (int *)malloc(lvMain * 1000);
+        int *unsortedBubble = (int *)malloc(lvMain);
+        int *unsortedSelect = (int *)malloc(lvMain);
 
-        printf("\nCreating array of length:\t%d...", lvMain*1000);
         //Assign random values to the array
-        for (lvInner = 0; lvInner < (lvMain*1000); ++lvInner){
+        for (lvInner = 0; lvInner < (lvMain); ++lvInner){
             srand(randomSeed++);
-            unsortedBubble[lvInner] = rand()%10000;
+
+            unsortedBubble[lvInner] = rand()%1000;
             unsortedSelect[lvInner] = unsortedBubble[lvInner];
         }
-        printf("\nCreated array of length:\t%d!", lvMain*1000);
-
-        /*BUBBLE SORT*/
-        printf("\n\nTest 1: BubbleSort");
 
         start = clock();
+        BubbleSort(&unsortedBubble[0], lvMain);
+        end = clock();
 
+        BubbleSortTime = end - start;
 
+        start = clock();
+        SelectionSort(&unsortedSelect[0], lvMain*1000);
+        end = clock();
+
+        SelecSortTime = end - start;
+
+        printf("\nB: %ld | S: %ld", BubbleSortTime, SelecSortTime);
+
+        free(unsortedBubble);
+        free(unsortedSelect);
     }
+}
+
+void BubbleSort(int *array, long limit){
+    int i, j;
+    int temp;
+
+    for (i = 0; i < limit; ++i){
+        for (j = 0; j < limit - i; ++j){
+            if (array[j] > array[j+1]){
+                temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
+            }
+        }
+    }
+
+    return;
 }
