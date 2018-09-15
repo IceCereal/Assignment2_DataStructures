@@ -1,4 +1,4 @@
-import matplotlib
+import matplotlib.pyplot as plt
 
 fptr = open("TimeTaken.csv", 'r')
 
@@ -6,10 +6,8 @@ BubbleSortCoordinates = []
 SelectSortCoordinates = []
 
 count = 0
-temp = []
 inputVar = 0
-bubbleSort = []
-selectSort = []
+temp = []
 
 for line in fptr.readlines():
     for char in line:
@@ -19,14 +17,18 @@ for line in fptr.readlines():
                 count += 1
                 temp = []
             else:
-                bubbleSort.append(tuple([inputVar, int(''.join(temp))]))
+                BubbleSortCoordinates.append(tuple([inputVar, int(''.join(temp))]))
                 count += 1
                 temp = []
         elif char == '\n':
-            selectSort.append(tuple([inputVar, int(''.join(temp))]))
+            SelectSortCoordinates.append(tuple([inputVar, int(''.join(temp))]))
             temp = []
             count = 0
         else:
             temp.append(char)
 
 fptr.close()
+
+plt.scatter(*zip(*BubbleSortCoordinates), s=1)
+plt.scatter(*zip(*SelectSortCoordinates), s=1)
+plt.show()
