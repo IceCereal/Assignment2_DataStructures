@@ -7,6 +7,7 @@ Selection & Bubble
 #include <stdlib.h>
 #include <time.h>
 
+
 void BubbleSort(int *, long);
 void SelectionSort(int *, long);
 
@@ -19,7 +20,9 @@ void main(){
 
     long lvMain, lvInner;
 
-    for (lvMain = 1; lvMain <= 5000; ++lvMain){
+    FILE *fptr = fopen("TimeTaken.csv", "w+");
+
+    for (lvMain = 1; lvMain <= 10000; ++lvMain){
         printf("\n___\nNumber of elements:\t%ld.", lvMain);
 
         int *unsortedBubble = (int *)malloc(lvMain*sizeof(int));
@@ -47,9 +50,12 @@ void main(){
 
         printf("\nB: %ld | S: %ld", BubbleSortTime, SelectSortTime);
 
+        fprintf(fptr, "%ld,%ld,%ld\n", lvMain, BubbleSortTime, SelectSortTime);
+
         free(unsortedBubble);
         free(unsortedSelect);
     }
+    fclose(fptr);
 }
 
 void BubbleSort(int *array, long limit){
