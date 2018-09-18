@@ -146,10 +146,8 @@ void main(){
 
         if ( (flag_s == 1) && (flag_b == 1) )
             break;
-
-        printf("\x1b[0m\n\nFlag_b %d\n\nFlag_s %d", flag_b, flag_s);
-
-        getch();
+            
+        sleep(2);
     }
 
     printf("\x1b[0m\nDONE");
