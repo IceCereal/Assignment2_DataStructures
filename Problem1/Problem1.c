@@ -22,11 +22,16 @@ void clrscr(){
     printf("\e[1;1H\e[2J");
 }
 
-void printArr(int *arr, int limit){
+void printArr(int *arr, int limit, int num1, int num2){
     int i;
 
     for (i = 0; i < limit; ++i){
-        printf("%d\t", arr[i]);
+        if ( (i == num1) || (i == num2) ){
+            printf("\x1b[33m%d\t", arr[i]);
+        }
+        else{
+            printf("\x1b[0m%d\t", arr[i]);
+        }
     }
 
     return;
@@ -46,16 +51,16 @@ void main(){
         SelectArray[lvMain] = BubbleArray[lvMain];
     }
 
-    printf("Bubble Sort and Selection Sort Animated\tIceCereal");
+    printf("\x1b[0mBubble Sort and Selection Sort Animated\tIceCereal");
     getch();
     clrscr();
 
-    printf("\nBubble\t");
+    printf("\n\x1b[0mBubble\t");
     for (lvMain = 0; lvMain < 10; ++lvMain){
         printf("%d\t", BubbleArray[lvMain]);
     }
 
-    printf("\nSelect\t");
+    printf("\n\x1b[0mSelect\t");
     for (lvMain = 0; lvMain < 10; ++lvMain){
         printf("%d\t", SelectArray[lvMain]);
     }
@@ -84,7 +89,7 @@ void main(){
     while (1){
 
         clrscr();
-        printf("%d\n\n", ++count);
+        printf("\x1b[0m%d\n\n", ++count);
         //Bubbs
         if (i_b != limit){
 
@@ -93,6 +98,9 @@ void main(){
                 BubbleArray[j_b] = BubbleArray[j_b + 1];
                 BubbleArray[j_b + 1] = temp;
             }
+
+            printf("\x1b[0m\nBubble\t");
+            printArr(&BubbleArray[0], 10, j_b, j_b+1);
 
             ++j_b;
 
@@ -105,8 +113,7 @@ void main(){
                 flag_b = 1;
 
         }
-        printf("\nBubble\t");
-        printArr(&BubbleArray[0], 10);
+
 
         //Sells
         if (i_s != limit){
@@ -131,19 +138,21 @@ void main(){
 
             if (i_s == limit-1)
                 flag_s = 1;
+
+            printf("\x1b[0m\nSelect\t");
+            printArr(&SelectArray[0], 10, i_s, j_s);
         }
-        printf("\nSelect\t");
-        printArr(&SelectArray[0], 10);
+
 
         if ( (flag_s == 1) && (flag_b == 1) )
             break;
 
-        printf("\n\nFlag_b %d\n\nFlag_s %d", flag_b, flag_s);
+        printf("\x1b[0m\n\nFlag_b %d\n\nFlag_s %d", flag_b, flag_s);
 
         getch();
     }
 
-    printf("\nDONE");
+    printf("\x1b[0m\nDONE");
 
     return;
 }
