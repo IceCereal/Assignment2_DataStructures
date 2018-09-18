@@ -22,24 +22,128 @@ void clrscr(){
     printf("\e[1;1H\e[2J");
 }
 
+void printArr(int *arr, int limit){
+    int i;
+
+    for (i = 0; i < limit; ++i){
+        printf("%d\t", arr[i]);
+    }
+
+    return;
+}
 
 void main(){
     int BubbleArray[10];
     int SelectArray[10];
 
     //Randomize list
-    int randomSeed = 1, lvMain;
+    int randomSeed = 111, lvMain;
 
     for (lvMain = 0; lvMain < 10; ++lvMain){
         srand(randomSeed++);
 
-        BubbleArray[lvMain] = rand()%10;
+        BubbleArray[lvMain] = rand()%100;
         SelectArray[lvMain] = BubbleArray[lvMain];
     }
 
     printf("Bubble Sort and Selection Sort Animated\tIceCereal");
     getch();
     clrscr();
+
+    printf("\nBubble\t");
+    for (lvMain = 0; lvMain < 10; ++lvMain){
+        printf("%d\t", BubbleArray[lvMain]);
+    }
+
+    printf("\nSelect\t");
+    for (lvMain = 0; lvMain < 10; ++lvMain){
+        printf("%d\t", SelectArray[lvMain]);
+    }
+
+    printf("\n\n");
+    getch();
+
+    //Begin main Program
+    int limit = 10;
+    int temp = 0;
+
+    int flag_b = 0;
+    int flag_s = 0;
+
+    //Bubble
+    int i_b = 0;
+    int j_b = 0;
+
+    //Selection
+    int i_s = 0;
+    int j_s = i_s + 1;
+    int minPos_s = i_s;
+
+    int count = 0;
+
+    while (1){
+
+        clrscr();
+        printf("%d\n\n", ++count);
+        //Bubbs
+        if (i_b != limit){
+
+            if (BubbleArray[j_b] > BubbleArray[j_b + 1]){
+                temp = BubbleArray[j_b];
+                BubbleArray[j_b] = BubbleArray[j_b + 1];
+                BubbleArray[j_b + 1] = temp;
+            }
+
+            ++j_b;
+
+            if (j_b == limit - i_b){
+                j_b = 0;
+                ++i_b;
+            }
+
+            if (i_b == limit)
+                flag_b = 1;
+
+        }
+        printf("\nBubble\t");
+        printArr(&BubbleArray[0], 10);
+
+        //Sells
+        if (i_s != limit){
+
+            if (SelectArray[minPos_s] > SelectArray[j_s])
+                minPos_s = j_s;
+
+            ++j_s;
+
+            if (j_s == limit){
+
+                if (minPos_s != i_s){
+                    temp = SelectArray[minPos_s];
+                    SelectArray[minPos_s] = SelectArray[i_s];
+                    SelectArray[i_s] = temp;
+                }
+
+                ++i_s;
+                j_s  = i_s + 1;
+                minPos_s = i_s;
+            }
+
+            if (i_s == limit-1)
+                flag_s = 1;
+        }
+        printf("\nSelect\t");
+        printArr(&SelectArray[0], 10);
+
+        if ( (flag_s == 1) && (flag_b == 1) )
+            break;
+
+        printf("\n\nFlag_b %d\n\nFlag_s %d", flag_b, flag_s);
+
+        getch();
+    }
+
+    printf("\nDONE");
 
     return;
 }
