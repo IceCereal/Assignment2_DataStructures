@@ -104,13 +104,14 @@ void main(){
 
             ++j_b;
 
-            if (j_b == limit - i_b){
+            if (j_b == limit - i_b - 1){
                 j_b = 0;
                 ++i_b;
             }
 
-            if (i_b == limit)
+            if (i_b == limit){
                 flag_b = 1;
+            }
 
         }
 
@@ -144,10 +145,13 @@ void main(){
         }
 
 
-        if ( (flag_s == 1) && (flag_b == 1) )
+        if ( (flag_s == 1) && (flag_b == 1) ){
             break;
-            
-        sleep(2);
+        }
+
+        printf("\x1b[0m\n\nFlag_b %d\n\nFlag_s %d\n\n", flag_b, flag_s);
+
+        sleep(1);
     }
 
     printf("\x1b[0m\nDONE");
