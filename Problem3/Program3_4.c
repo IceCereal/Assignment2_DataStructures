@@ -242,3 +242,23 @@ void sortSelect(int array[limit][2]){
 
     return;
 }
+
+//INSERTION SORT MODULE
+void sortInsert(int array[limit][2]){
+	int i, j;
+	int curVal;
+
+	for (i = 0; i < limit - 1; ++i){
+		curVal = array[i][0];
+		j = i - 1;
+
+		while ( (j >= 0) && (array[j][0] > curVal){
+			array[j+1] = array[j];
+			j -= 1;
+		}
+
+		array[j+1] = curVal;
+	}
+
+	return;
+}
