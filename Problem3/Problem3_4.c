@@ -53,15 +53,15 @@ void main(){
 			merge_Array[i][j] = array[i][j];
 		}
 	}
-	
+
 	printf("\n\nArray:");
 	PrintArr(array, 30);
-	
+
 	sortBubble(bubbleArray, 30);
   	sortSelect(selectArray, 30);
 	sortInsert(insertArray, 30);
 	sort_Merge(merge_Array, 30);
-	
+
   	return;
 }
 
